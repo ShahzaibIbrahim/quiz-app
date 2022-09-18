@@ -32,17 +32,24 @@ public class UserRestController {
 
 	// add mapping for POST /Users - add new User
 
-	@PostMapping()
-	public User addUser(@RequestBody User theUser) {
-
-		// also just in case they pass an id in JSON ... set id to 0
-		// this is to force a save of new item ... instead of update
-
+	@PostMapping("/register")
+	public void register(@RequestBody User theUser) {
+		// set id to 0 to force to save a new item
 		theUser.setUserId(0);
 
 		UserService.save(theUser);
+	}
 
-		return theUser;
+	@PostMapping("/login")
+	public String loginUser(@RequestBody User theUser) {
+
+		return UserService.loginUser(theUser);
+	}
+
+	@PostMapping("/logout")
+	public void logoutUser(@RequestHeader(value = "Authorization", required = false) String authorizationKey) {
+
+		UserService.logoutUser(authorizationKey);
 	}
 }
 
