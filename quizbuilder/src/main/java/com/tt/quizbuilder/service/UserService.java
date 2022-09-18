@@ -4,9 +4,11 @@ import com.tt.quizbuilder.entity.User;
 
 public interface UserService {
 
-	public User findById(int theId);
-	
-	public void save(User theUser);
+	User findById(int theId);
 
-	
+	void save(User theUser);
+
+	String loginUser(User user);
+
+	void logoutUser(String authorizationKey);
 }

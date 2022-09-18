@@ -21,7 +21,8 @@ public class Answer {
 
     @Column(name="answer_is_correct")
     @NotNull
-    private boolean isCorrect;
+    @JsonIgnore
+    private boolean correct;
 
     @JsonIgnore
     @ManyToOne(cascade= {CascadeType.ALL})
@@ -31,9 +32,9 @@ public class Answer {
 
     }
 
-    public Answer(String text, boolean isCorrect) {
+    public Answer(String text, boolean correct) {
         this.text = text;
-        this.isCorrect = isCorrect;
+        this.correct = correct;
     }
 
     public int getId() {
@@ -53,11 +54,11 @@ public class Answer {
     }
 
     public boolean isCorrect() {
-        return isCorrect;
+        return correct;
     }
 
     public void setCorrect(boolean correct) {
-        isCorrect = correct;
+        this.correct = correct;
     }
 
     public Question getQuestion() {

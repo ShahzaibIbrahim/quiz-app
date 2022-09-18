@@ -1,6 +1,8 @@
 package com.tt.quizbuilder.entity;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +15,21 @@ public class User {
     @Column(name="user_id")
     private int userId;
 
-    @Column(name="user_name")
+    @NotNull
+    @NotEmpty(message = "Username cannot be empty")
+    @Column(name="user_name", unique = true)
     private String username;
 
+    @NotNull
+    @NotEmpty(message = "Password cannot be empty")
     @Column(name="user_password")
     private String password;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "user", cascade=CascadeType.ALL)
     private List<Quiz> quizzes = new ArrayList<>();
 
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "user", cascade=CascadeType.ALL)
+    private List<UserAuthentication> userAuthentications = new ArrayList<>();
 
     public User() {
 
@@ -62,5 +70,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<UserAuthentication> getUserAuthentications() {
+        return userAuthentications;
+    }
+
+    public void setUserAuthentications(List<UserAuthentication> userAuthentications) {
+        this.userAuthentications = userAuthentications;
     }
 }

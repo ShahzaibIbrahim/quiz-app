@@ -1,5 +1,6 @@
 package com.tt.quizbuilder.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import com.tt.quizbuilder.util.QuizIdGenerator;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonFilter("quizFilter")
 @Table(name="QUIZ")
 public class Quiz {
 
