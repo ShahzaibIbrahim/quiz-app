@@ -69,6 +69,11 @@ public class QuizRestController {
 
 		return mappingJacksonValue;
 	}
+
+	@PostMapping("/remove/{quizId}")
+	public void deleteQuiz(@PathVariable String quizId, @RequestHeader(value = "Authorization", required = false) String authorizationKey) {
+		QuizService.deleteQuiz(quizId, authorizationKey);
+	}
 }
 
 

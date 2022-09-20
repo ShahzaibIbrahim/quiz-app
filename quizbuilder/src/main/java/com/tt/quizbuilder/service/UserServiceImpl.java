@@ -30,17 +30,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void save(User theUser) {
-
+	public String registerUser(User theUser) {
+		//1. Check if user already exist. if yes then throw an error.
 		User dbUser = UserDAO.findByUsername(theUser.getUsername());
 
 		if(dbUser != null) {
 			throw new ProcessException("Username already exist!");
 		}
 
+		//2. Create hashed password and save the user in db.
 		String hashedPassword = PasswordHashUtil.generateHash(theUser.getPassword());
 		theUser.setPassword(hashedPassword);
 		UserDAO.save(theUser);
+
+		//3. Also log the user in after generating new token.
+		return generateToken(theUser);
 	}
 
 	@Transactional
