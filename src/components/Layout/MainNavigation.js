@@ -43,6 +43,11 @@ const MainNavigation = () => {
           )}
           {isLoggedin && (
             <li>
+              <Link to="/create">Create Quiz</Link>
+            </li>
+          )}
+          {isLoggedin && (
+            <li>
               <button onClick={logoutHandler}>Logout</button>
             </li>
           )}

@@ -7,9 +7,15 @@ import {Paper} from '@mui/material';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+const columns = [
+  { id: 'id', label: 'Id', minWidth: 50 },
+  { id: 'title', label: 'Title', minWidth: 250 },
+  { id: 'action', label: 'Actions', minWidth: 100 },
+];
+
 const QuizList = () => {
   const authCtx = useContext(AuthContext);
-  const [questionList, setQuestionList] = useState([]);
+  const [quizList, setQuizList] = useState([]);
 
   useEffect(() => {
     const url = appConfig.api.url + appConfig.endpoints.QUIZ_LIST;
@@ -31,12 +37,12 @@ const QuizList = () => {
       })
       .then((data) => {
         //success case
-        setQuestionList(data);
+        setQuizList(data);
       })
       .catch((error) => {
         alert(error.message);
       });
-  }, [setQuestionList, authCtx.token]);
+  }, [setQuizList, authCtx.token]);
 
   const removeQuiz = useCallback((quizId) => {
     console.log('removing quiz');
@@ -54,8 +60,8 @@ const QuizList = () => {
       .then((res) => {
         if (res.ok) {
           // Update List
-          const newQuestList = questionList.filter(ques => ques.id !== quizId);
-          setQuestionList(newQuestList);
+          const newQuestList = quizList.filter(ques => ques.id !== quizId);
+          setQuizList(newQuestList);
         } else {
           let errorMessage = "Could not fetch data";
           throw new Error(errorMessage);
@@ -64,12 +70,12 @@ const QuizList = () => {
       .catch((error) => {
         alert(error.message);
       });
-  }, [setQuestionList, questionList, authCtx.token]);
+  }, [setQuizList, quizList, authCtx.token]);
 
   return (
     <Paper sx={{ width: '80%',  margin: '3rem auto', textAlign: 'center'  }}>
       <h1>Quiz List</h1>
-      <Table rows={questionList.map(obj => ({ ...obj, action:  <Button color="secondary" size="small"  onClick={removeQuiz.bind(null, obj.id)} startIcon={<DeleteIcon />}></Button>}))}/>
+      <Table columns={columns} rows={quizList.map(obj => ({ ...obj, action:  <Button color="secondary" size="small"  onClick={removeQuiz.bind(null, obj.id)} startIcon={<DeleteIcon />}></Button>}))}/>
     </Paper>
   );
 };

@@ -8,25 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-const columns = [
-  { id: 'id', label: 'Id', minWidth: 50 },
-  { id: 'title', label: 'Title', minWidth: 250 },
-  { id: 'action', label: 'Actions', minWidth: 100 },
-];
-
-/* function createData(id, title, action) {
-  return { id, title, action };
-}
-
-const rows = [
-  createData('dad55X', 'My New Quiz', "Action"),
-  createData('dad55X', 'My New Quiz', "Action"),
-  createData('dad55X', 'My New Quiz', "Action"),
-  createData('dad55X', 'My New Quiz', "Action")
-]; */
 
 export default function StickyHeadTable(props) {
   const rows = props.rows;
+  const columns = props.columns;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -59,9 +44,9 @@ export default function StickyHeadTable(props) {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row, id) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code ? row.code : id + ''}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (

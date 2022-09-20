@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import AuthContext from "./store/auth-context";
+import NewQuiz from "./pages/NewQuiz";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -18,6 +19,11 @@ function App() {
         {!authCtx.isLoggedIn && (
           <Route path="/auth">
             <AuthPage />
+          </Route>
+        )}
+        {authCtx.isLoggedIn && (
+          <Route path="/create">
+            <NewQuiz />
           </Route>
         )}
         <Route path='*'>
