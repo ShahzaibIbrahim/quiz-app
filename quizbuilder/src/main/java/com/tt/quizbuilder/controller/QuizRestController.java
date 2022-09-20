@@ -3,12 +3,16 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.tt.quizbuilder.entity.Quiz;
+import com.tt.quizbuilder.exception.GlobalResponse;
 import com.tt.quizbuilder.service.QuizService;
+import com.tt.quizbuilder.util.ResponseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -47,11 +51,19 @@ public class QuizRestController {
 	// add mapping for POST /Quiz - add new Quiz
 
 	@PostMapping("/create")
-	public String addQuiz(@RequestBody Quiz quiz, @RequestHeader(value = "Authorization", required = false) String authorizationKey) {
+	public GlobalResponse addQuiz(@RequestBody Quiz quiz, @RequestHeader(value = "Authorization", required = false) String authorizationKey) {
 
 		QuizService.createQuiz(quiz, authorizationKey);
 
-		return quiz.getId();
+		Map responseMap = new HashMap();
+		responseMap.put("quizId", quiz.getId());
+
+		GlobalResponse response = new GlobalResponse();
+		response.setData(responseMap);
+		response.setResponseCode(ResponseConstants.SUCCESS_CODE);
+		response.setMessage("Quiz Created Successfully");
+
+		return response;
 	}
 
 

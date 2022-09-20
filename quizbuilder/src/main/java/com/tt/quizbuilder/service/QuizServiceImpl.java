@@ -65,7 +65,8 @@ public class QuizServiceImpl implements QuizService {
         if(userAuthentication !=null) {
             User user = userAuthentication.getUser();
 
-            quizList = user.getQuizzes();
+            // Only return non deleted quizzes
+            quizList = user.getQuizzes().stream().filter(x -> x.isActive()).collect(Collectors.toList());
         } else {
             throw new ProcessException("User not found");
         }
@@ -84,14 +85,12 @@ public class QuizServiceImpl implements QuizService {
         }
 
         User user = userAuthentication.getUser();
-        List<Quiz> quizzes = user.getQuizzes().stream().filter(x -> !x.getId().equalsIgnoreCase(quizId)).collect(Collectors.toList());
 
-        Quiz quizToBeDeleted = user.getQuizzes().stream().filter(x -> !x.getId().equalsIgnoreCase(quizId)).findFirst().orElse(null);
-
-        user.setQuizzes(quizzes);
+        Quiz quizToBeDeleted = user.getQuizzes().stream().filter(x -> x.getId().equalsIgnoreCase(quizId)).findFirst().orElse(null);
 
         if(quizToBeDeleted != null) {
-            quizDAO.delete(quizToBeDeleted);
+            quizToBeDeleted.setActive(false);
+            quizDAO.save(quizToBeDeleted);
         }
     }
 }

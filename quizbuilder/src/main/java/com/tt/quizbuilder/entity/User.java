@@ -46,6 +46,7 @@ public class User {
 
     public void setQuizzes(List<Quiz> quizzes) {
         this.quizzes = quizzes;
+        this.quizzes.forEach(quiz -> quiz.setUser(this));
     }
 
     public int getUserId() {

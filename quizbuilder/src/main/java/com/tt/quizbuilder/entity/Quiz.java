@@ -2,11 +2,11 @@ package com.tt.quizbuilder.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 import com.tt.quizbuilder.util.QuizIdGenerator;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +24,11 @@ public class Quiz {
     @Column(name="quiz_title")
     @NotNull
     private String title;
+
+    @JsonIgnore
+    @Column(name="quiz_active")
+    @NotNull
+    private boolean active = true;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "quiz", cascade=CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
@@ -70,5 +75,13 @@ public class Quiz {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
