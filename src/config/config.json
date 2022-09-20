@@ -1,0 +1,18 @@
+{
+    "api" : {
+        "url" : "http://localhost:8080/api"
+    },
+    "endpoints" : {
+        "LOGIN" : "/user/login",
+        "LOGOUT" : "/user/logout",
+        "REGISTER" : "/user/register",
+        "CREATE_QUIZ" : "/quiz/create",
+        "QUIZ_LIST" : "/quiz/list",
+        "ATTEMPT_QUIZ" : "/quiz/attempt",
+        "REMOVE_QUIZ" : "/quiz/remove"
+    },
+    "reponseCodes" : {
+        "SUCCESS" : "00",
+        "FAILURE" : "01"
+    }
+}
