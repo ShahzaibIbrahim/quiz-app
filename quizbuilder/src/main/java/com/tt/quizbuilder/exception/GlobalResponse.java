@@ -4,12 +4,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExceptionResponse {
+public class GlobalResponse {
 
     private String message;
-    private LocalDateTime dateTime;
-
+    private LocalDateTime dateTime = LocalDateTime.now();
     private List<String> violations;
+
+    private String responseCode;
+
+    private Object data;
 
     public String getMessage() {
         return message;
@@ -18,10 +21,7 @@ public class ExceptionResponse {
         this.message = message;
     }
     public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+        return this.dateTime;
     }
 
     public List<String> getViolations() {
@@ -34,5 +34,21 @@ public class ExceptionResponse {
 
     public void setViolations(List<String> violations) {
         this.violations = violations;
+    }
+
+    public String getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(String responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }

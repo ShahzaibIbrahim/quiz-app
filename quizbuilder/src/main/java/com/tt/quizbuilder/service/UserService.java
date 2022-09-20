@@ -6,7 +6,7 @@ public interface UserService {
 
 	User findById(int theId);
 
-	void save(User theUser);
+	String registerUser(User theUser);
 
 	String loginUser(User user);
 

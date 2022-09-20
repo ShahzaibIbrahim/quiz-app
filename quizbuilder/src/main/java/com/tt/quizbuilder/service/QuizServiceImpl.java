@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuizServiceImpl implements QuizService {
@@ -54,6 +55,7 @@ public class QuizServiceImpl implements QuizService {
         quizDAO.save(theQuiz);
     }
 
+    @Transactional
     @Override
     public List<Quiz> getQuizList(String authorizationKey) {
         //1. Get User from authentication token
@@ -69,5 +71,27 @@ public class QuizServiceImpl implements QuizService {
         }
 
         return quizList;
+    }
+
+    @Transactional
+    @Override
+    public void deleteQuiz(String quizId, String authorizationKey) {
+        //1. Validate the user. Only logged in user can delete the quiz
+        UserAuthentication userAuthentication = userDAO.validateToken(authorizationKey);
+
+        if(userAuthentication == null) {
+            throw new ProcessException("You need to login to delete the quiz");
+        }
+
+        User user = userAuthentication.getUser();
+        List<Quiz> quizzes = user.getQuizzes().stream().filter(x -> !x.getId().equalsIgnoreCase(quizId)).collect(Collectors.toList());
+
+        Quiz quizToBeDeleted = user.getQuizzes().stream().filter(x -> !x.getId().equalsIgnoreCase(quizId)).findFirst().orElse(null);
+
+        user.setQuizzes(quizzes);
+
+        if(quizToBeDeleted != null) {
+            quizDAO.delete(quizToBeDeleted);
+        }
     }
 }
