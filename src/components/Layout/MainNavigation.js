@@ -36,6 +36,11 @@ const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
+          {isLoggedin && (
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+          )}
           {!isLoggedin && (
             <li>
               <Link to="/auth">Login</Link>

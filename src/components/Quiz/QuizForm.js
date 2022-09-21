@@ -4,23 +4,37 @@ import Table from "../UI/Table";
 import NewQuestion from "./NewQuestion";
 import appConfig from './../../config/config.json';
 import AuthContext from "../../store/auth-context";
+import BasicModal from "../UI/BasicModal";
+import { useHistory } from "react-router-dom";
+
 
 const columns = [{ id: "text", label: "Question Text", minWidth: 200 }];
 
 const QuizForm = () => {
+  const history = useHistory();
   const authCtx = useContext(AuthContext);
   const [questionList] = useState([]);
   const [error, setError] = useState(false);
   const [openQuestionModal, setOpenQuestionModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
   const quizTitle = useRef();
 
   const openQuestionModalHandler = () => {
     setOpenQuestionModal(!openQuestionModal);
   };
 
+  const openSuccessModalHandler = () => {
+    setOpenSuccessModal(!openSuccessModal);
+  };
+
   const questionAddHandler = (quesObject) => {
     questionList.push(quesObject);
   };
+
+  const afterSubmitHandler = () => {
+    history.replace('/');
+  }
 
   const submitQuizHandler = () => {
     const qtitle = quizTitle.current.value;
@@ -51,7 +65,9 @@ const QuizForm = () => {
           }
         })
         .then((resData) => {
-            alert(window.location.origin + '/' + resData.data.quizId);
+            setOpenSuccessModal(true);
+            setSuccessMessage(window.location.origin + '/' + resData.data.quizId);
+           // alert(window.location.origin + '/' + resData.data.quizId);
         })
         .catch((error) => {
           alert(error.message);
@@ -103,6 +119,15 @@ const QuizForm = () => {
         >
           Publish Quiz
         </Button>
+        <BasicModal open={openSuccessModal} openHandler={openSuccessModalHandler}>
+          <p>{successMessage}</p>
+          <Button color="secondary"
+            fullWidth
+            variant="contained"
+            onClick={afterSubmitHandler}>
+                Ok
+          </Button> 
+        </BasicModal>
       </Paper>
     </div>
   );

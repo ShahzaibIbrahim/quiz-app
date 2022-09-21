@@ -3,9 +3,10 @@ import AuthContext from "../../store/auth-context";
 import appConfig from "../../config/config.json";
 import React from "react";
 import Table from "../UI/Table";
-import {Paper} from '@mui/material';
+import { Paper, Tooltip } from '@mui/material';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const columns = [
   { id: 'id', label: 'Id', minWidth: 50 },
@@ -72,10 +73,23 @@ const QuizList = () => {
       });
   }, [setQuizList, quizList, authCtx.token]);
 
+  const getQuizRows = quizList.map(obj => ({
+    ...obj,
+    action: <div>
+      <Tooltip title="Delete">
+        <Button color="secondary" size="small" onClick={removeQuiz.bind(null, obj.id)} startIcon={<DeleteIcon />} />
+      </Tooltip>
+      <Tooltip title="Copy">
+        <Button color="secondary" size="small" onClick={() => { navigator.clipboard.writeText(window.location.origin + '/' + obj.id) }} startIcon={<ContentCopyIcon />} />
+      </Tooltip>
+    </div>
+
+  }));
+
   return (
-    <Paper sx={{ width: '80%',  margin: '3rem auto', textAlign: 'center'  }}>
+    <Paper sx={{ width: '80%', margin: '3rem auto', textAlign: 'center' }}>
       <h1>Quiz List</h1>
-      <Table columns={columns} rows={quizList.map(obj => ({ ...obj, action:  <Button color="secondary" size="small"  onClick={removeQuiz.bind(null, obj.id)} startIcon={<DeleteIcon />}></Button>}))}/>
+      <Table columns={columns} rows={getQuizRows} />
     </Paper>
   );
 };
