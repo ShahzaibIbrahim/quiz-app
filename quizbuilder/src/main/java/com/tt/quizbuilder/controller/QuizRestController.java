@@ -34,7 +34,8 @@ public class QuizRestController {
 
 		SimpleBeanPropertyFilter simpleBeanPropertyFilter = SimpleBeanPropertyFilter.serializeAll();
 		FilterProvider filterProvider = new SimpleFilterProvider()
-				.addFilter("quizFilter", simpleBeanPropertyFilter);
+				.addFilter("quizFilter", simpleBeanPropertyFilter)
+				.addFilter("answerFilter", simpleBeanPropertyFilter);
 
 		MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(quiz);
 		mappingJacksonValue.setFilters(filterProvider);
@@ -62,6 +63,23 @@ public class QuizRestController {
 		response.setData(responseMap);
 		response.setResponseCode(ResponseConstants.SUCCESS_CODE);
 		response.setMessage("Quiz Created Successfully");
+
+		return response;
+	}
+
+	@PostMapping("/submit")
+	public GlobalResponse submitQuiz(@RequestBody Map<String, Object> answerMap) {
+
+		Map<String, List<Integer>> answersMap = (Map<String, List<Integer>>) answerMap.get("answers");
+		String quizId = (String) answerMap.get("quizId");
+
+
+		Map responseMap = QuizService.submitQuiz(quizId, answersMap);
+
+		GlobalResponse response = new GlobalResponse();
+		response.setData(responseMap);
+		response.setResponseCode(ResponseConstants.SUCCESS_CODE);
+		response.setMessage("Quiz Submitted Successfully");
 
 		return response;
 	}

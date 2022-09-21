@@ -1,12 +1,14 @@
 package com.tt.quizbuilder.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
 @Entity
+@JsonFilter("answerFilter")
 @Table(name="ANSWERS")
 public class Answer {
 
@@ -21,7 +23,6 @@ public class Answer {
 
     @Column(name="answer_is_correct")
     @NotNull
-    @JsonIgnore
     private boolean correct;
 
     @JsonIgnore

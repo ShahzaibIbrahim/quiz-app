@@ -9,7 +9,7 @@ public interface UserDAO {
 	
 	public void save(User user);
 
-	public User findByUsername(String username);
+	public User findByEmail(String email);
 
 	public String saveAuthentication(UserAuthentication authentication);
 	public UserAuthentication validateToken(String authorizationKey);

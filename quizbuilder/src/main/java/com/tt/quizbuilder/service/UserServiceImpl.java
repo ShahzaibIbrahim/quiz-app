@@ -32,10 +32,10 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public String registerUser(User theUser) {
 		//1. Check if user already exist. if yes then throw an error.
-		User dbUser = UserDAO.findByUsername(theUser.getUsername());
+		User dbUser = UserDAO.findByEmail(theUser.getEmail());
 
 		if(dbUser != null) {
-			throw new ProcessException("Username already exist!");
+			throw new ProcessException("Email already exist!");
 		}
 
 		//2. Create hashed password and save the user in db.
@@ -63,10 +63,10 @@ public class UserServiceImpl implements UserService {
 	public String loginUser(User user) {
 
 		//1. Check if username and password matches
-		User dbUser = UserDAO.findByUsername(user.getUsername());
+		User dbUser = UserDAO.findByEmail(user.getEmail());
 
 		if(dbUser == null || !dbUser.getPassword().equalsIgnoreCase(PasswordHashUtil.generateHash(user.getPassword()))) {
-			throw new ProcessException("Invalid Username or Password");
+			throw new ProcessException("Invalid Email or Password");
 		}
 
 		//2. generate the token
