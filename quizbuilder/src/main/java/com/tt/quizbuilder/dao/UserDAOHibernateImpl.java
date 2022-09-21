@@ -49,13 +49,13 @@ public class UserDAOHibernateImpl implements UserDAO {
 	}
 
 	@Override
-	public User findByUsername(String username) {
+	public User findByEmail(String email) {
 
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 		User user;
-		Query<User> theQuery = currentSession.createQuery("from User where username=:username");
-		theQuery.setParameter("username", username);
+		Query<User> theQuery = currentSession.createQuery("from User where email=:email");
+		theQuery.setParameter("email", email);
 
 		try {
 			user = theQuery.getSingleResult();

@@ -2,16 +2,16 @@ package com.tt.quizbuilder.service;
 
 import com.tt.quizbuilder.dao.QuizDAO;
 import com.tt.quizbuilder.dao.UserDAO;
-import com.tt.quizbuilder.entity.Quiz;
-import com.tt.quizbuilder.entity.User;
-import com.tt.quizbuilder.entity.UserAuthentication;
+import com.tt.quizbuilder.entity.*;
 import com.tt.quizbuilder.exception.ProcessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -92,5 +92,49 @@ public class QuizServiceImpl implements QuizService {
             quizToBeDeleted.setActive(false);
             quizDAO.save(quizToBeDeleted);
         }
+    }
+
+    @Override
+    public Map<String, Integer> submitQuiz(String quizId, Map<String, List<Integer>> answerMap) {
+        //1. Fetch Quiz
+        Quiz quiz = quizDAO.findById(quizId).orElse(null);
+
+        if(quiz == null) {
+            throw new ProcessException("Quiz not found with id "+quizId);
+        }
+
+        //2. Scoring the answers -- All correct options should be selected.
+        int questionCount = 0;
+        int correctAnswerCount = 0;
+        for(Question ques : quiz.getQuestions()) {
+            questionCount++;
+            int quesId = ques.getId();
+            boolean isCorrect = false;
+            List<Integer> userAnswers = answerMap.get(String.valueOf(quesId));
+            List<Answer> dbCorrectAnswer =  ques.getAnswers().stream().filter(x -> x.isCorrect()).collect(Collectors.toList());
+
+            if(dbCorrectAnswer.size() == userAnswers.size()) {
+                for (Answer answer : dbCorrectAnswer) {
+                    if (answer.isCorrect()) {
+                        if (!userAnswers.contains(answer.getId())) {
+                            isCorrect = false;
+                            break;
+                        } else {
+                            isCorrect = true;
+                        }
+                    }
+                }
+            }
+
+            if (isCorrect) {
+                correctAnswerCount++;
+            }
+        }
+
+        Map resultMap = new HashMap();
+        resultMap.put("total", questionCount);
+        resultMap.put("correct", correctAnswerCount);
+
+        return resultMap;
     }
 }

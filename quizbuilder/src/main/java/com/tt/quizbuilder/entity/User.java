@@ -1,8 +1,11 @@
 package com.tt.quizbuilder.entity;
 import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +19,10 @@ public class User {
     private int userId;
 
     @NotNull
-    @NotEmpty(message = "Username cannot be empty")
-    @Column(name="user_name", unique = true)
-    private String username;
+    @NotEmpty(message = "Email cannot be empty")
+    @Column(name="user_email", unique = true)
+    @Email(message = "Invalid Email Address")
+    private String email;
 
     @NotNull
     @NotEmpty(message = "Password cannot be empty")
@@ -35,8 +39,8 @@ public class User {
 
     }
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
@@ -57,12 +61,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
