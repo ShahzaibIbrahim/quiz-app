@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from "react";
-import { Button, Paper, TextField, Typography, Alert } from "@mui/material";
+import { Button, Paper, TextField, Typography, Alert, Link } from "@mui/material";
 import Table from "../UI/Table";
 import NewQuestion from "./NewQuestion";
 import appConfig from './../../config/config.json';
@@ -44,8 +44,6 @@ const QuizForm = () => {
     } else if (questionList.length === 0) {
       setError("You need to add atleast one question");
     } else {
-     // const dataObj = { title: qtitle, questions: questionList };
-
       const url = appConfig.api.url + appConfig.endpoints.CREATE_QUIZ;
 
       fetch(url, {
@@ -66,8 +64,7 @@ const QuizForm = () => {
         })
         .then((resData) => {
             setOpenSuccessModal(true);
-            setSuccessMessage(window.location.origin + '/' + resData.data.quizId);
-           // alert(window.location.origin + '/' + resData.data.quizId);
+            setSuccessMessage(window.location.origin + '/attempt/' + resData.data.quizId);
         })
         .catch((error) => {
           alert(error.message);
@@ -94,7 +91,7 @@ const QuizForm = () => {
           required
         />
       </Paper>
-      <Paper sx={{ width: "80%", margin: "3rem auto", textAlign: "center" }}>
+      <Paper sx={{ width: "80%", margin: "3rem auto", textAlign: "center", padding: "20px" }}>
         <Table columns={columns} rows={questionList} />
         <Button
           color="secondary"
@@ -120,7 +117,8 @@ const QuizForm = () => {
           Publish Quiz
         </Button>
         <BasicModal open={openSuccessModal} openHandler={openSuccessModalHandler}>
-          <p>{successMessage}</p>
+          <p>Quiz Created Successfully. <Link href={successMessage}>{successMessage}</Link></p>
+        
           <Button color="secondary"
             fullWidth
             variant="contained"

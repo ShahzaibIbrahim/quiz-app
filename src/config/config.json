@@ -9,6 +9,7 @@
         "CREATE_QUIZ" : "/quiz/create",
         "QUIZ_LIST" : "/quiz/list",
         "ATTEMPT_QUIZ" : "/quiz/attempt",
+        "SUBMIT_QUIZ" : "/quiz/submit",
         "REMOVE_QUIZ" : "/quiz/remove"
     },
     "reponseCodes" : {

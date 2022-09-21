@@ -6,7 +6,7 @@ import Table from "../UI/Table";
 import { Paper, Tooltip } from '@mui/material';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const columns = [
   { id: 'id', label: 'Id', minWidth: 50 },
@@ -79,8 +79,8 @@ const QuizList = () => {
       <Tooltip title="Delete">
         <Button color="secondary" size="small" onClick={removeQuiz.bind(null, obj.id)} startIcon={<DeleteIcon />} />
       </Tooltip>
-      <Tooltip title="Copy">
-        <Button color="secondary" size="small" onClick={() => { navigator.clipboard.writeText(window.location.origin + '/' + obj.id) }} startIcon={<ContentCopyIcon />} />
+      <Tooltip title="Open in a new tab">
+        <Button color="secondary" size="small" onClick={() => { window.open(window.location.origin +'/attempt/' + obj.id); }} startIcon={<OpenInNewIcon />} />
       </Tooltip>
     </div>
 

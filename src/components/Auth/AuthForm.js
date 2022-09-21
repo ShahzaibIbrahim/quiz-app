@@ -35,7 +35,7 @@ const AuthForm = () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        username: enteredEmail,
+        email: enteredEmail,
         password: enteredPassword
       }),
       headers: {
@@ -55,7 +55,7 @@ const AuthForm = () => {
           authCtx.login(resData.data.authorization);
           history.replace('/');
         }  else if (resData.responseCode === appConfig.reponseCodes.FAILURE) {
-          setErrorMessage(resData.message);
+          setErrorMessage(resData.message + ". " + resData.violations);
         }
       })
       .catch((error) => {
@@ -69,8 +69,8 @@ const AuthForm = () => {
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitLoginHandler}>
         <div className={classes.control}>
-          <label htmlFor="email">Your Username</label>
-          <input type="text" id="email" ref={emailInputRef} required />
+          <label htmlFor="email">Your Email</label>
+          <input type="email" id="email" ref={emailInputRef} required />
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>

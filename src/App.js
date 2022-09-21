@@ -6,6 +6,7 @@ import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import AuthContext from "./store/auth-context";
 import NewQuiz from "./pages/NewQuiz";
+import AttemptQuizPage from "./pages/AttemptQuizPage";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -26,6 +27,7 @@ function App() {
             <NewQuiz />
           </Route>
         )}
+        <Route path="/attempt/:quizId" children={<AttemptQuizPage />} />
         <Route path='*'>
           <Redirect to='/' />
         </Route>
