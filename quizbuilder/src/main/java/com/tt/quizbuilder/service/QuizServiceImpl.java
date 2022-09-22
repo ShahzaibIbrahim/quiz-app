@@ -103,6 +103,10 @@ public class QuizServiceImpl implements QuizService {
             throw new ProcessException("Quiz not found with id "+quizId);
         }
 
+        if(answerMap == null) {
+            throw new ProcessException("Please choose atleast one option for all the questions");
+        }
+
         //2. Scoring the answers -- All correct options should be selected.
         int questionCount = 0;
         int correctAnswerCount = 0;
@@ -111,6 +115,10 @@ public class QuizServiceImpl implements QuizService {
             int quesId = ques.getId();
             boolean isCorrect = false;
             List<Integer> userAnswers = answerMap.get(String.valueOf(quesId));
+
+            if(userAnswers == null || userAnswers.size() == 0 ) {
+                throw new ProcessException("Please choose atleast one option for all the questions");
+            }
             List<Answer> dbCorrectAnswer =  ques.getAnswers().stream().filter(x -> x.isCorrect()).collect(Collectors.toList());
 
             if(dbCorrectAnswer.size() == userAnswers.size()) {
