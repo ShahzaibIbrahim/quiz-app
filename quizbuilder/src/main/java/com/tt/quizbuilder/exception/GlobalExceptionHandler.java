@@ -35,6 +35,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
         @ExceptionHandler(Exception.class)
         public ResponseEntity<Object> handleExceptions(Exception exception, WebRequest webRequest) {
+            exception.printStackTrace();
             GlobalResponse response = new GlobalResponse();
             response.setMessage("Something went wrong! Please contact administrator");
             ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
