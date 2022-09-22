@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	public String generateToken(User user) {
+		// Generating new token
 		UserAuthentication userAuthentication = new UserAuthentication();
 
 		userAuthentication.setCreateDate(new Date());
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
 		userAuthentication.setAuthToken(String.valueOf(UUID.randomUUID()));
 		userAuthentication.setSessionActive(true);
 
+		// Saving it in db and also returning it to front end
 		return UserDAO.saveAuthentication(userAuthentication);
 	}
 	@Transactional
