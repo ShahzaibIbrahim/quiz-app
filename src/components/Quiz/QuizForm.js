@@ -21,6 +21,7 @@ const QuizForm = () => {
   const quizTitle = useRef();
 
   const openQuestionModalHandler = () => {
+    setError(false);
     setOpenQuestionModal(!openQuestionModal);
   };
 
@@ -93,7 +94,7 @@ const QuizForm = () => {
       </Paper>
       <Paper sx={{ width: "80%", margin: "3rem auto", textAlign: "center", padding: "20px" }}>
         <Table columns={columns} rows={questionList} />
-        <Button
+        {questionList && questionList.length < 10 && <Button
           color="secondary"
           fullWidth
           variant="contained"
@@ -101,6 +102,7 @@ const QuizForm = () => {
         >
           Add Question
         </Button>
+        }
         <NewQuestion
           open={openQuestionModal}
           openHandler={openQuestionModalHandler}

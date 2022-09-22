@@ -62,6 +62,10 @@ export default function NewQuestion(props) {
       typeof answerList.find((x) => x.text.length > 0) === "undefined"
     ) {
       setError("You need to add atleast one option");
+    } else if (
+      typeof answerList.find((x) => x.correct) === "undefined"
+    ) {
+      setError("You need to add atleast one correct option");
     } else {
       const filteredAnswerList = answerList.filter((x) => x.text.length > 0);
       const returnObject = { text: quesTitle, answers: filteredAnswerList };

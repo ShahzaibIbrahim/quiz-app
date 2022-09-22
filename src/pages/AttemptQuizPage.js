@@ -96,10 +96,12 @@ const AttemptQuizPage = () => {
             });
     }, [setData, quizId]);
 
-    const questionList = data && data !== null && data.questions && data.questions.map((ques) =>
+    const questionList = data && data !== null && data.questions && data.questions.map((ques, id) =>
         <div>
             <Paper key={ques.id} sx={{ width: '80%', margin: '3rem auto', textAlign: 'left', padding: '25px' }}>
-                <h4 key={ques.id}>{ques.text}</h4>
+                <h4 key={ques.id}>{(id + 1) + '.'} {ques.text}</h4>
+                <p>{!ques.singleAnswer && "Select All Correct Options"}</p>
+                <p>{ques.singleAnswer && "Select One Correct Option"}</p>
                 {ques.answers.map((answer) =>
                     <FormGroup key={answer.id}>
                         <FormControlLabel key={answer.id} control={<Checkbox />} label={answer.text} onChange={handleCheckBoxChange.bind(null, ques.id, answer.id)} />
