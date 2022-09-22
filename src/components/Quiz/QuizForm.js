@@ -1,19 +1,20 @@
 import React, { useState, useRef, useContext } from "react";
-import { Button, Paper, TextField, Typography, Alert, Link } from "@mui/material";
+import { Button, Paper, TextField, Typography, Alert, Link, Tooltip } from "@mui/material";
 import Table from "../UI/Table";
 import NewQuestion from "./NewQuestion";
 import appConfig from './../../config/config.json';
 import AuthContext from "../../store/auth-context";
 import BasicModal from "../UI/BasicModal";
 import { useHistory } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-
-const columns = [{ id: "text", label: "Question Text", minWidth: 200 }];
+const columns = [{ id: "text", label: "Question Text", minWidth: 200 },
+{ id: "action", label: "Action", minWidth: 200 }];
 
 const QuizForm = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
-  const [questionList] = useState([]);
+  const [questionList, setQuestionList] = useState([]);
   const [error, setError] = useState(false);
   const [openQuestionModal, setOpenQuestionModal] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -73,6 +74,16 @@ const QuizForm = () => {
     }
   };
 
+  const removeQuestionFromList = (questionIdx) => {
+    const temp = [...questionList];
+
+    // removing the element using splice
+    temp.splice(questionIdx, 1);
+
+    // updating the list
+    setQuestionList(temp);
+  }
+
   return (
     <div>
       <Paper sx={{ width: "80%", margin: "3rem auto", textAlign: "center" }}>
@@ -93,7 +104,14 @@ const QuizForm = () => {
         />
       </Paper>
       <Paper sx={{ width: "80%", margin: "3rem auto", textAlign: "center", padding: "20px" }}>
-        <Table columns={columns} rows={questionList} />
+        <Table columns={columns} rows={questionList.map((obj, idx) => ({
+          ...obj,
+          action: <div>
+            <Tooltip title="Delete">
+              <Button color="secondary" size="small" onClick={removeQuestionFromList.bind(null, idx)} startIcon={<DeleteIcon />} />
+            </Tooltip>
+          </div>
+        }))} />
         {questionList && questionList.length < 10 && <Button
           color="secondary"
           fullWidth
