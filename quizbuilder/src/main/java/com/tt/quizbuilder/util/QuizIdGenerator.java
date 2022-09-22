@@ -13,7 +13,7 @@ public class QuizIdGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor sharedSessionContractImplementor, Object object) throws HibernateException {
-        return RandomStringUtils.randomAlphanumeric(6);
+        return RandomStringUtils.randomAlphanumeric(6).toUpperCase();
     }
 }
 

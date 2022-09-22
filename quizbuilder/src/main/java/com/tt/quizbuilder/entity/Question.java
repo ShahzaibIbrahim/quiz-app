@@ -20,6 +20,9 @@ public class Question {
     @NotNull
     private String text;
 
+    @Transient
+    private boolean singleAnswer;
+
     @OneToMany(fetch=FetchType.LAZY, mappedBy="question", cascade=CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
     @JsonIgnore
@@ -47,6 +50,14 @@ public class Question {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isSingleAnswer() {
+        return singleAnswer;
+    }
+
+    public void setSingleAnswer(boolean singleAnswer) {
+        this.singleAnswer = singleAnswer;
     }
 
     public List<Answer> getAnswers() {
