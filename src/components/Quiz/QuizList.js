@@ -20,6 +20,7 @@ const QuizList = () => {
   const [quizList, setQuizList] = useState([]);
 
   useEffect(() => {
+    // Upon rerendering, fetch the latest quiz list for the particular user
     const url = appConfig.api.url + appConfig.endpoints.QUIZ_LIST;
 
     fetch(url, {
@@ -47,9 +48,7 @@ const QuizList = () => {
   }, [setQuizList, authCtx.token]);
 
   const removeQuiz = useCallback((quizId) => {
-    console.log('removing quiz');
-    console.log(quizId);
-
+    // Remove the quiz from the list and also send a request to back end for soft deletion of quiz. 
     const url = appConfig.api.url + appConfig.endpoints.REMOVE_QUIZ + "/" + quizId;
 
     fetch(url, {
@@ -74,6 +73,7 @@ const QuizList = () => {
       });
   }, [setQuizList, quizList, authCtx.token]);
 
+  // Rendering list with its actions 
   const getQuizRows = quizList.map(obj => ({
     ...obj,
     action: <div>
