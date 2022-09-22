@@ -112,7 +112,7 @@ export default function NewQuestion(props) {
                 key={"tf" + id}
                 id={id + ""}
                 onChange={changeAnswerHandler.bind(null, id)}
-                label={"Option " + id}
+                label={"Option " + (id + 1)}
                 margin="normal"
                 variant="standard"
               />

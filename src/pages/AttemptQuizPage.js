@@ -54,7 +54,11 @@ const AttemptQuizPage = () => {
             .then((resData) => {
                 // Sucess
                 setOpenSuccessModal(true);
-                setSuccessMessage("You answered "+resData.data.correct+"/"+resData.data.total+" questions correctly");
+                if(resData.responseCode && resData.responseCode === '01') {
+                    setSuccessMessage(resData.message);
+                } else {
+                    setSuccessMessage("You answered "+resData.data.correct+"/"+resData.data.total+" questions correctly");
+                }
             })
             .catch((error) => {
                 alert(error.message);

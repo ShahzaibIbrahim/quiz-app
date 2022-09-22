@@ -1,6 +1,6 @@
 {
     "api" : {
-        "url" : "http://localhost:8080/api"
+        "url" : "http://128.1.97.201:8080/api"
     },
     "endpoints" : {
         "LOGIN" : "/user/login",
