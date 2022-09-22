@@ -8,7 +8,8 @@ import BasicModal from "../UI/BasicModal";
 import { useHistory } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const columns = [{ id: "text", label: "Question Text", minWidth: 200 },
+const columns = [{ id: "id", label: "Sr no.", minWidth: 50 },
+{ id: "text", label: "Question Text", minWidth: 200 },
 { id: "action", label: "Action", minWidth: 200 }];
 
 const QuizForm = () => {
@@ -110,7 +111,8 @@ const QuizForm = () => {
             <Tooltip title="Delete">
               <Button color="secondary" size="small" onClick={removeQuestionFromList.bind(null, idx)} startIcon={<DeleteIcon />} />
             </Tooltip>
-          </div>
+          </div>,
+           id: idx + 1
         }))} />
         {questionList && questionList.length < 10 && <Button
           color="secondary"

@@ -10,7 +10,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { ContentCopy } from "@mui/icons-material";
 
 const columns = [
-  { id: 'id', label: 'Id', minWidth: 50 },
+  { id: 'id', label: 'Sr no.', minWidth: 50 },
   { id: 'title', label: 'Title', minWidth: 250 },
   { id: 'action', label: 'Actions', minWidth: 100 },
 ];
@@ -74,7 +74,7 @@ const QuizList = () => {
   }, [setQuizList, quizList, authCtx.token]);
 
   // Rendering list with its actions 
-  const getQuizRows = quizList.map(obj => ({
+  const getQuizRows = quizList.map((obj,idx) => ({
     ...obj,
     action: <div>
       <Tooltip title="Delete">
@@ -86,7 +86,8 @@ const QuizList = () => {
       <Tooltip title="Copy Link">
         <Button color="secondary" size="small" onClick={() => { navigator.clipboard.writeText(window.location.origin +'/attempt/' + obj.id); }} startIcon={<ContentCopy />} />
       </Tooltip>
-    </div>
+    </div>,
+    id: idx + 1
 
   }));
 
