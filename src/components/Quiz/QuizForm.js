@@ -73,7 +73,7 @@ const QuizForm = () => {
           } else {
             let quizLink = window.location.origin + '/attempt/' + resData.data.quizId;
             setSuccessMessage(<div><p>Quiz Created Successfully</p>
-                              <Link href={quizLink}>quizLink</Link></div>);
+                              <Link href={quizLink}>{quizLink}</Link></div>);
           }
         })
         .catch((error) => {
@@ -147,7 +147,7 @@ const QuizForm = () => {
           Publish Quiz
         </Button>
         <BasicModal open={openSuccessModal} openHandler={openSuccessModalHandler}>
-          <p>Quiz Created Successfully. <Link href={successMessage}>{successMessage}</Link></p>
+          <p>{successMessage}</p>
         
           <Button color="secondary"
             fullWidth

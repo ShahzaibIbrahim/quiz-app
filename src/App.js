@@ -9,6 +9,8 @@ import NewQuiz from "./pages/NewQuiz";
 import AttemptQuizPage from "./pages/AttemptQuizPage";
 
 function App() {
+
+  
   const authCtx = useContext(AuthContext);
 
   return (
