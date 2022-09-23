@@ -66,8 +66,15 @@ const QuizForm = () => {
           }
         })
         .then((resData) => {
-            setOpenSuccessModal(true);
-            setSuccessMessage(window.location.origin + '/attempt/' + resData.data.quizId);
+          
+          setOpenSuccessModal(true);
+          if(resData.responseCode && resData.responseCode === '01') {
+            setSuccessMessage(<p>{resData.message}</p>)
+          } else {
+            let quizLink = window.location.origin + '/attempt/' + resData.data.quizId;
+            setSuccessMessage(<div><p>Quiz Created Successfully</p>
+                              <Link href={quizLink}>quizLink</Link></div>);
+          }
         })
         .catch((error) => {
           alert(error.message);
@@ -101,6 +108,7 @@ const QuizForm = () => {
           style={{ width: "80%" }}
           margin="normal"
           variant="standard"
+          inputProps={{ maxLength: 200 }}
           required
         />
       </Paper>

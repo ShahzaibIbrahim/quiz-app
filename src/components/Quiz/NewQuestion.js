@@ -54,6 +54,7 @@ export default function NewQuestion(props) {
   };
 
   const onAddQuestion = () => {
+    setError(null);
     const quesTitle = questionTitleRef.current.value;
 
     if (quesTitle === null || quesTitle.trim().length === 0) {
@@ -66,6 +67,10 @@ export default function NewQuestion(props) {
       typeof answerList.find((x) => x.correct) === "undefined"
     ) {
       setError("You need to add atleast one correct option");
+    } else if (
+      typeof answerList.find((x) => x.correct && x.text.length === 0) !== "undefined"
+    ) {
+      setError("Correct Option must have a text");
     } else {
       const filteredAnswerList = answerList.filter((x) => x.text.length > 0);
       const returnObject = { text: quesTitle, answers: filteredAnswerList };
@@ -96,6 +101,7 @@ export default function NewQuestion(props) {
             label="Question Title"
             margin="normal"
             variant="standard"
+            inputProps={{ maxLength: 200 }}
           />
           <Typography id="modal-modal-title" variant="h6" component="h4">
             Add Options
@@ -119,6 +125,7 @@ export default function NewQuestion(props) {
                 label={"Option " + (id + 1)}
                 margin="normal"
                 variant="standard"
+                inputProps={{ maxLength: 200 }}
               />
               <FormControlLabel
                 key={"fc" + id}
