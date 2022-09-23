@@ -77,6 +77,7 @@ const AuthForm = () => {
           <input
             type="password"
             id="password"
+            minlength="8"
             ref={passwordInputRef}
             required
           />
