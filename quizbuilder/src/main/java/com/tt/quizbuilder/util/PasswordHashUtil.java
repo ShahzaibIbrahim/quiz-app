@@ -15,6 +15,8 @@ public class PasswordHashUtil {
 
         String generatedPassword = null;
         try {
+
+            // Using MD5 algo to hash password
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(passwordToHash.getBytes());
 
