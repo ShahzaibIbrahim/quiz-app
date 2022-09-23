@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Quiz {
 
     @Column(name="quiz_title")
     @NotNull
+    @Size(max=255, message = "Quiz title should less than 255 characters")
     private String title;
 
     @JsonIgnore

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Question {
 
     @Column(name="question_text")
     @NotNull
+    @Size(max=255, message = "Question title should less than 255 characters")
     private String text;
 
     @Transient

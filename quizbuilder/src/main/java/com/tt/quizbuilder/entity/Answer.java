@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @JsonFilter("answerFilter")
@@ -19,6 +20,7 @@ public class Answer {
 
     @Column(name="answer_text")
     @NotNull
+    @Size(max=255, message = "Answer title should less than 255 characters")
     private String text;
 
     @Column(name="answer_is_correct")
