@@ -1,0 +1,19 @@
+{
+    "api" : {
+        "url" : "http://128.1.97.201:8080/api"
+    },
+    "endpoints" : {
+        "LOGIN" : "/user/login",
+        "LOGOUT" : "/user/logout",
+        "REGISTER" : "/user/register",
+        "CREATE_QUIZ" : "/quiz/create",
+        "QUIZ_LIST" : "/quiz/list",
+        "ATTEMPT_QUIZ" : "/quiz/attempt",
+        "SUBMIT_QUIZ" : "/quiz/submit",
+        "REMOVE_QUIZ" : "/quiz/remove"
+    },
+    "reponseCodes" : {
+        "SUCCESS" : "00",
+        "FAILURE" : "01"
+    }
+}

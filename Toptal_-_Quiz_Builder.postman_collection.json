@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "a7a09be8-deda-4dbc-9ba5-094fc484c9b9",
+		"name": "Toptal - Quiz Builder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18126318"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"shahzaib.ibrahim\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/user/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"shahzaib.ibrahim\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7508245c-5338-416c-b7c8-9d87085d081e",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/user/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Quiz",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "0292e46f-0751-4a40-b871-b030d66e11de",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"My new Quiz\",\r\n  \"questions\": [\r\n    {\r\n      \"text\": \"My Quest\",\r\n      \"answers\": [\r\n        {\r\n          \"text\": \"No\",\r\n          \"correct\": true\r\n        },\r\n        {\r\n          \"text\": \"Yes\",\r\n          \"correct\": false\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/quiz/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quiz",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Quiz List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "0292e46f-0751-4a40-b871-b030d66e11de",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/quiz/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quiz",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Quiz",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "0292e46f-0751-4a40-b871-b030d66e11de",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/quiz/remove/Q8hqpe",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quiz",
+						"remove",
+						"Q8hqpe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt Quiz",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "2833f2c4-472c-40a2-a94d-446b03e422b6",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/quiz/attempt/z7iQuxda",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quiz",
+						"attempt",
+						"z7iQuxda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Quiz",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "2833f2c4-472c-40a2-a94d-446b03e422b6",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answers\": {\r\n        \"75\": [\r\n            154\r\n        ]\r\n    },\r\n    \"quizId\": \"9PqcgB\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/quiz/submit",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quiz",
+						"submit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
